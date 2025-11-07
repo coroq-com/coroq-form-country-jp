@@ -5,6 +5,8 @@ Japan country-specific form inputs for [coroq/form](https://github.com/ozami/cor
 ## Features
 
 - **PostalCodeInput** - Japanese postal code (郵便番号) validation and normalization
+- **PrefectureCodeSelect** - 47 Japanese prefectures selection (2-digit codes: 01-47)
+- **PrefectureSelect** - 47 Japanese prefectures selection (prefecture names)
 - **BasicErrorMessages** - Japanese error messages
 
 ## Installation

@@ -25,7 +25,7 @@
     ],
     "require": {
         "php": ">=8.0",
-        "coroq/form": "3.0.0-alpha7"
+        "coroq/form": "3.0.0-alpha8"
     },
     "scripts": {
         "test": "@php vendor/bin/phpunit",
