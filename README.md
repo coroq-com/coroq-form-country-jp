@@ -104,6 +104,55 @@ $tel->setValue('090-1234-5678');  // Valid, keeps hyphens
 $tel->setValue('09012345678');     // Invalid - requires hyphens
 ```
 
+## PrefectureSelect
+
+Select input for all 47 Japanese prefectures. Values and labels are both prefecture names.
+
+```php
+use Coroq\Form\Country\Jp\FormItem\PrefectureSelect;
+
+$prefecture = new PrefectureSelect();
+$prefecture->setValue('東京都');
+
+if ($prefecture->validate()) {
+    echo $prefecture->getValue();        // "東京都"
+    echo $prefecture->getPrefecture();   // "東京都" or null
+}
+```
+
+### Empty Option Label
+
+By default, an empty option with an empty label is added at the top. You can customize the label:
+
+```php
+$prefecture = (new PrefectureSelect())->setEmptyOptionLabel('選択してください');
+// First option will be: '' => '選択してください'
+```
+
+## PrefectureCodeSelect
+
+Select input for all 47 Japanese prefectures using JIS X 0401 codes (01-47). Values are 2-digit codes, labels are prefecture names.
+
+```php
+use Coroq\Form\Country\Jp\FormItem\PrefectureCodeSelect;
+
+$prefecture = new PrefectureCodeSelect();
+$prefecture->setValue('13');  // Tokyo
+
+if ($prefecture->validate()) {
+    echo $prefecture->getValue();        // "13"
+    echo $prefecture->getPrefecture();   // "東京都"
+}
+```
+
+### Empty Option Label
+
+Same as PrefectureSelect, you can customize the empty option label:
+
+```php
+$prefecture = (new PrefectureCodeSelect())->setEmptyOptionLabel('選択してください');
+```
+
 ## Error Messages
 
 ```php
