@@ -16,16 +16,9 @@
             "email": "ozawa@coroq.com"
         }
     ],
-    "require": {},
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/ozami/coroq-form.git"
-        }
-    ],
     "require": {
-        "php": ">=8.0",
-        "coroq/form": "3.0.0-alpha8"
+        "php": "^8.0",
+        "coroq/form": "^3.0"
     },
     "scripts": {
         "test": "@php vendor/bin/phpunit",

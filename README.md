@@ -16,7 +16,7 @@ Japan country-specific form inputs for [coroq/form](https://github.com/ozami/cor
 composer require coroq/form-country-jp
 ```
 
-Requires PHP >= 8.0, coroq/form ^3.0
+Requires PHP ^8.0, coroq/form ^3.0
 
 ## PostalCodeInput
 
