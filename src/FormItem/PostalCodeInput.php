@@ -22,9 +22,8 @@ class PostalCodeInput extends Input {
    * Set output format style
    *
    * @param bool $withHyphen true for "123-4567", false for "1234567"
-   * @return self
    */
-  public function setWithHyphen(bool $withHyphen): self {
+  public function setWithHyphen(bool $withHyphen): static {
     $this->withHyphen = $withHyphen;
     return $this;
   }

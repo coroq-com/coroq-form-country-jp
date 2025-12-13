@@ -23,9 +23,8 @@ class TelInput extends Input {
    * Set whether to require hyphens in telephone number
    *
    * @param bool $withHyphen
-   * @return self
    */
-  public function setWithHyphen(bool $withHyphen): self {
+  public function setWithHyphen(bool $withHyphen): static {
     $this->withHyphen = $withHyphen;
     $this->setValue($this->getValue());
     return $this;

@@ -22,9 +22,8 @@ class PrefectureCodeSelect extends Select {
    * Set the label for the empty option
    *
    * @param string $label Label for empty option (e.g., "選択してください")
-   * @return self
    */
-  public function setEmptyOptionLabel(string $label): self {
+  public function setEmptyOptionLabel(string $label): static {
     $this->emptyOptionLabel = $label;
     $this->setOptions($this->getPrefectureOptions());
     return $this;
