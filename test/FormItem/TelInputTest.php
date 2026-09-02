@@ -100,6 +100,55 @@ class TelInputTest extends TestCase {
     $this->assertFalse($tel->validate());
   }
 
+  // International format (+81) tests
+  public function testFilterConvertsInternationalFormat() {
+    $tel = new TelInput();
+    $tel->setValue('+818066696650');
+
+    $this->assertSame('08066696650', $tel->getValue());
+    $this->assertTrue($tel->validate());
+  }
+
+  public function testFilterConvertsInternationalFormatWithSeparators() {
+    $tel = new TelInput();
+    $tel->setValue('+81 80-6669-6650');
+
+    $this->assertSame('08066696650', $tel->getValue());
+    $this->assertTrue($tel->validate());
+  }
+
+  public function testFilterKeepsRedundantTrunkPrefixAfterCountryCode() {
+    $tel = new TelInput();
+    $tel->setValue('+81 080-6669-6650');
+
+    $this->assertSame('08066696650', $tel->getValue());
+    $this->assertTrue($tel->validate());
+  }
+
+  public function testFilterConvertsInternationalFormatInHyphenMode() {
+    $tel = (new TelInput())->setWithHyphen(true);
+    $tel->setValue('+81-3-1234-5678');
+
+    $this->assertSame('03-1234-5678', $tel->getValue());
+    $this->assertTrue($tel->validate());
+  }
+
+  public function testFilterPreservesForeignCountryCode() {
+    $tel = new TelInput();
+    $tel->setValue('+12025550123');
+
+    $this->assertSame('+12025550123', $tel->getValue());
+    $this->assertFalse($tel->validate());
+  }
+
+  public function testFilterPreservesInvalidInternationalInput() {
+    $tel = new TelInput();
+    $tel->setValue('+81abc');
+
+    $this->assertSame('+81abc', $tel->getValue());
+    $this->assertFalse($tel->validate());
+  }
+
   // With hyphen mode tests
   public function testWithHyphenModeValid11Digit() {
     $tel = (new TelInput())->setWithHyphen(true);

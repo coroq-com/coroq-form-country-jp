@@ -94,6 +94,21 @@ $tel->setValue('０９０１２３４５６７８'); // "09012345678"
 $tel->setValue('  090 1234 5678  '); // "09012345678"
 ```
 
+### International Format
+
+The `+81` country code that browsers autofill is converted to the domestic format.
+A redundant trunk prefix after the country code is kept instead of being doubled.
+Other country codes are left untouched and fail validation.
+
+```php
+$tel = new TelInput();
+
+$tel->setValue('+818066696650');     // "08066696650"
+$tel->setValue('+81 80-6669-6650');  // "08066696650"
+$tel->setValue('+81 080-6669-6650'); // "08066696650"
+$tel->setValue('+12025550123');      // "+12025550123" - invalid
+```
+
 ### With Hyphen Mode
 
 Use `setWithHyphen(true)` to require hyphens in input (asymmetric validation).

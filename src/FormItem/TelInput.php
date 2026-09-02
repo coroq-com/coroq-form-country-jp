@@ -13,6 +13,8 @@ use Coroq\Form\Error\Error;
  * Validates basic format: starts with 0, 10-11 digits.
  * Does not validate specific area codes or number ranges.
  * Supports optional hyphen mode.
+ * Accepts the international format (+81) browsers autofill and converts it to
+ * the domestic format.
  */
 class TelInput extends Input {
   use StringFilterTrait;
@@ -41,12 +43,38 @@ class TelInput extends Input {
     $value = $this->scrubUtf8($value);
     $value = $this->toHalfwidthAscii($value);
     $value = $this->removeWhitespace($value);
+    $value = $this->toDomesticNumber($value);
 
     if (!$this->withHyphen) {
       $value = preg_replace('/-/u', '', $value);
     }
 
     return $value;
+  }
+
+  /**
+   * Convert an international format number (+81) to the domestic format
+   *
+   * Replaces the +81 country code with the trunk prefix 0:
+   * +818066696650 -> 08066696650, +81-3-1234-5678 -> 03-1234-5678
+   *
+   * A country code is sometimes followed by a redundant trunk prefix
+   * (+81 080-...), which is kept as is instead of being doubled.
+   * Values that are not a +81 number followed by digits and hyphens are
+   * returned untouched, leaving the judgement to validation.
+   *
+   * @param string $value
+   * @return string
+   */
+  private function toDomesticNumber(string $value): string {
+    if (!preg_match('/\A\+81-?([0-9-]+)\z/u', $value, $matches)) {
+      return $value;
+    }
+    $nationalNumber = $matches[1];
+    if (str_starts_with($nationalNumber, '0')) {
+      return $nationalNumber;
+    }
+    return '0' . $nationalNumber;
   }
 
   /**
